@@ -1,7 +1,9 @@
-var express = require("express"),
+var express = require("express.io"),
 	swig = require("swig"),
 	_ = require("underscore");
+
 var server = express();
+server.http().io();
 
 var RedisStore = require("connect-redis")(express);
 
@@ -9,6 +11,9 @@ var RedisStore = require("connect-redis")(express);
 server.engine("html",swig.renderFile);
 server.set("view engine","html");
 server.set("views","./app/views");
+
+server.use(express.static("./public"));
+
 
 server.configure(function(){
 	server.use(express.logger());
