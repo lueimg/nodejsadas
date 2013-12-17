@@ -24,8 +24,25 @@ server.configure(function(){
 });
 
 
+var isntLoggedIn = function(req,res,next){
 
-server.get("/",function(req,res){
+	if(!req.session.user){
+		res.redirect("/");
+		return;
+	}
+	next();
+};
+
+var isLoggedIn = function(req,res,next){
+
+	if(req.session.user){
+		res.redirect("/app");
+		return;
+	}
+	next();
+};
+
+server.get("/", isLoggedIn, function(req,res){
 	//res.send("hola");
 	res.render("home");
 });
@@ -36,7 +53,7 @@ server.post("/log-in",function(req,res){
 	res.redirect("/app");
 });
 
-server.get("/app",function(req,res){
+server.get("/app", isntLoggedIn, function(req,res){
 	res.render("app",{user:req.session.user});
 
 });
