@@ -1,4 +1,11 @@
 {% extends "layout.html" %}
 {% block content %}
 <h2>bienvenido {{user}}</h2>
+<a href="/log-out">Log out</a>
+<ul>
+	{%  for person in users %}
+	<li>{{person}}</li>
+	{% endfor %}
+</ul>
+
 {% endblock %}
