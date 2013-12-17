@@ -1,36 +1,16 @@
-var express = require("express");
+var express = require("express"),
+	swig = require("swig");
 var server = express();
 
-//valores en el servidor
-var messages = [];
-var responses = []
-
-server.get("/",function (req, res){
-	
-	//res.send es el momento en el que quiera mandarle algo al usuario
-	res.send("hola mundo");
-});
+//CONFIGURAR EL MOTOR DE TEMPLATE
+server.engine("html",swig.renderFile);
+server.set("view engine","html");
+server.set("views","./app/views");
 
 
-server.get("/messages/:message",function (req, res){
-	
-	messages.push(req.params.message);
-
-	responses.forEach(function(res){
-		var script = "<script>window.location.reload();</script>"
-		res.send(messages + script);
-	});
-
-
-
-	res.send("tu mensaje es " + req.params.message);
-});
-
-
-server.get("/messages",function(req,res){
-
-	responses.push(res);
-
+server.get("/",function(req,res){
+	//res.send("hola");
+	res.render("home");
 });
 
 
