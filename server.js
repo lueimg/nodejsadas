@@ -29,6 +29,10 @@ server.configure(function(){
 
 });
 
+//DEFINICION DE CONTROLADORES
+var homeController = require("./app/controllers/home");
+homeController(server);
+
 
 
 var users = [];
