@@ -90,13 +90,6 @@ server.io.route("listo?",function (req) {
 	req.io.emit("saludo",{message:"serverReady"});
 });
 
-server.io.route("log-in",function (req) {
-	req.io.emit("saludo",{message:"serverReady"});
-});
-
-server.io.route("log-out",function (req) {
-	req.io.emit("saludo",{message:"serverReady"});
-});
 
 
 server.listen(3000);
