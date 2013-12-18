@@ -29,29 +29,15 @@ server.configure(function(){
 
 });
 
-//DEFINICION DE CONTROLADORES
-var homeController = require("./app/controllers/home");
-homeController(server);
-
 var users = [];
 
-var isntLoggedIn = function(req,res,next){
 
-	if(!req.session.user){
-		res.redirect("/");
-		return;
-	}
-	next();
-};
+var homeController = require("./app/controllers/home");
+homeController(server,users);
 
+var appController = require("./app/controllers/app");
+appController(server,users);
 
-server.get("/app", isntLoggedIn, function(req,res){
-	res.render("app",{
-		user:req.session.user,
-		users:users
-	});
-
-});
 
 server.io.route("listo?",function (req) {
 	req.io.emit("saludo",{message:"serverReady"});

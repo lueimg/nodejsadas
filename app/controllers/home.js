@@ -1,6 +1,7 @@
 var _ = require("underscore");
 
-var homeController = function( server ,users ){
+	var homeController  = function(server,users){
+		console.log("module home cargado");
 
 
 	var isLoggedIn = function(req,res,next){
@@ -12,11 +13,11 @@ var homeController = function( server ,users ){
 		next();
 	};
 
-
 	server.get("/", isLoggedIn, function(req,res){
 		//res.send("hola");
 		res.render("home");
 	});
+
 
 	server.post("/log-in",function(req,res){
 		users.push(req.body.username);
@@ -38,6 +39,8 @@ var homeController = function( server ,users ){
 
 	});
 
+
+
 };
 
-module.exports = homeController;
+module.exports  = homeController;
