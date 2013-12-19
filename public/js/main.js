@@ -28,4 +28,17 @@ $().ready(function(){
 		});
 	});
 
+	jQuery("#repeticiones").click(function(){
+		for(i=1 ; i<1000000; i++){
+			io.emit("agregar",{posicion:i});
+		}
+	});
+
+	io.on("agregando",function(data){
+		
+		jQuery("body").prepend("|" + data.data + "|");
+
+	});
+
+
 }); 

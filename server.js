@@ -44,5 +44,32 @@ server.io.route("listo?",function (req) {
 });
 
 
+var mysql      = require('mysql');
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : '123',
+  database : "nodemysql",
+});
+
+connection.connect();
+
+server.io.route("agregar",function (req) {
+	
+	console.log("ingreso a ser agregado");
+	server.io.broadcast("agregando",{data:req.data.posicion});
+
+	
+	connection.query('INSERT INTO node SET ?', {descript: req.data.posicion }, function(err, result) {
+  if (err) throw err;
+
+  console.log(result.insertId);
+	});
+
+
+
+
+});
+
 
 server.listen(3000);
